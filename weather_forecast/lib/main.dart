@@ -1,31 +1,91 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-void main() => runApp(MyApp());
+Future<WeatherInformation> getWeather() async {
+  final String uri = 'http://api.openweathermap.org/data/2.5/forecast?q=London,gb&appid=7a1fb19e16b5e885d8e1512b4ac571cd';
+  final response = await http.get(Uri.parse(uri));
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+  if (response.statusCode == 200) {
+    //Successful API call, parsing Json
+    return WeatherInformation.fromJson(json.decode(response.body));
+  } else {
+    //Unsuccessful API call, throw error
+    throw Exception('Failed to load weather');
+  }
+}
+
+class WeatherInformation {
+  //Getting desired information from the Json response
+  final String name;
+  final String date;
+  final String main;
+  final double temp;
+
+  WeatherInformation({
+    this.name,
+    this.date,
+    this.main,
+    this.temp
+  });
+
+  factory WeatherInformation.fromJson(Map<String, dynamic> json) {
+    return WeatherInformation(
+      name: json['city']['name'],
+      date: json['list'][0]['dt_txt'],
+      main: json['list'][0]['weather'][0]['main'],
+      temp: json['list'][0]['main']['temp'].toDouble(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+void main() => runApp(MyApp(data: getWeather()));
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+
+  final Future<WeatherInformation> data;
+
+  MyApp({Key key, this.data}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Weather Forecast',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Weather Forecast'),
+        ),
+        body: Center(
+          child: FutureBuilder<WeatherInformation>(
+            future: data,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Column(
+                  children: <Widget>[
+                    Text(snapshot.data.name),
+                    Text(snapshot.data.date),
+                    Text(snapshot.data.main),
+                    Text(snapshot.data.temp.toString())
+                  ],
+                );
+              } else if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              }
+              return CircularProgressIndicator();
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/*class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
@@ -108,4 +168,4 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
-}
+}*/
