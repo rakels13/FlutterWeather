@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-
 import 'package:weather_forecast/models/WeatherInformation.dart';
 import 'package:weather_forecast/services/GetWeather.dart';
 import 'package:weather_forecast/services/SliverAppBarDelegate.dart';
+import 'package:weather_forecast/widgets/CurrentWeather.dart';
+import 'package:weather_forecast/widgets/ForecastWeather.dart';
 
 void main() => runApp(MyApp());
 
@@ -18,7 +19,7 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   
-  final Future<WeatherInformation> data = getWeather();
+  //final Future<WeatherInformation> data = getWeather();
 
   //MyAppState({Key key, this.data}) : super(key: key);
 
@@ -76,26 +77,7 @@ class SliverListView extends StatelessWidget {
           ),
           delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
               return new Container(
-                child: FutureBuilder<WeatherInformation>(
-                  future: getWeather(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Column(
-                        children: <Widget>[
-                          Text(snapshot.data.name, style: TextStyle(fontSize: 18.0)),
-                          Image.network('https://openweathermap.org/img/wn/${snapshot.data.icon}@2x.png'),
-                          Text(snapshot.data.date),
-                          Text(snapshot.data.main),
-                          Text(snapshot.data.temp.toString()+'°C'),
-                        ],
-                      );
-                    } else if (snapshot.hasError) {
-                      return Text("${snapshot.error}");
-                    }
-                    // By default, show a loading spinner.
-                    return CircularProgressIndicator();
-                  },
-                ),
+                child: CurrentWeather(),
               );
             },
             childCount: 1,
@@ -104,14 +86,12 @@ class SliverListView extends StatelessWidget {
         makeHeader('Weather Forecast for following days'),
         SliverFixedExtentList(
           itemExtent: 150.0,
-          delegate: SliverChildListDelegate(
-            [
-              Container(color: Colors.red),
-              Container(color: Colors.purple),
-              Container(color: Colors.green),
-              Container(color: Colors.orange),
-              Container(color: Colors.yellow),
-            ],
+          delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+            return new Container(
+              child: ForecastWeather(index: index+1,),
+            );
+          },
+          childCount: 4,
           ),
         ),
       ],
