@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_forecast/models/WeatherInformation.dart';
 import 'package:weather_forecast/services/GetWeather.dart';
+import 'package:intl/intl.dart';
 
 class CurrentWeather extends StatelessWidget {  
 
@@ -27,7 +28,10 @@ class CurrentWeather extends StatelessWidget {
                     child: Image.network('https://openweathermap.org/img/wn/${snapshot.data.icon}@2x.png'),
                   ),
                   Expanded(
-                    child: Text(snapshot.data.date),
+                    child: Text(DateFormat.yMMMMd("en_US").format(DateTime.now())),
+                  ),
+                  Expanded(
+                    child: Text(DateFormat('EEEE').format(DateTime.now())),
                   ),
                   Expanded(
                     child: Text(snapshot.data.main),

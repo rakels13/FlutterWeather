@@ -2,7 +2,7 @@
 class WeatherInformation {
   //Getting desired information from the Json response
   final String name;
-  final String date;
+  final DateTime date;
   final String main;
   final int temp;
   final String icon;
@@ -16,9 +16,12 @@ class WeatherInformation {
   });
 
   factory WeatherInformation.fromJson(Map<String, dynamic> json) {
+
+    final DateTime dt = DateTime.parse(json['list'][0]['dt_txt']);
+
     return WeatherInformation(
       name: json['city']['name'],
-      date: json['list'][0]['dt_txt'],
+      date: dt,
       main: json['list'][0]['weather'][0]['main'],
       temp: json['list'][0]['main']['temp'].toInt(),
       icon: json['list'][0]['weather'][0]['icon'],

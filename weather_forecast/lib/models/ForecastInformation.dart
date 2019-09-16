@@ -12,8 +12,10 @@ class ForecastInformation {
     List list = new List();
 
     for (dynamic i in json['list']) {
+      final DateTime dt = DateTime.parse(i['dt_txt']);
+
       WeatherInformation j = new WeatherInformation(
-        date: i['dt_txt'],
+        date: dt,
         main: i['weather'][0]['main'],
         temp: i['main']['temp'].toInt(),
         icon: i['weather'][0]['icon'],

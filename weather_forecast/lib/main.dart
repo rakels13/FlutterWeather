@@ -20,11 +20,9 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Weather Forecast',
-      theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-      ),
+      theme: ThemeData.light(),
       home: Scaffold(
-        backgroundColor: Colors.lightBlue,
+        //backgroundColor: Colors.lightBlue,
         body: SliverListView(),
       ),
     );
@@ -40,7 +38,7 @@ class SliverListView extends StatelessWidget {
         minHeight: 60.0,
         maxHeight: 80.0,
         child: Container(
-            color: Colors.blueGrey, 
+            color: Colors.grey, 
             child: Center( 
               child: Text(
                 headerText,
