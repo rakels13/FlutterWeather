@@ -15,7 +15,7 @@ class ForecastInformation {
       WeatherInformation j = new WeatherInformation(
         date: i['dt_txt'],
         main: i['weather'][0]['main'],
-        temp: i['main']['temp'].toDouble(),
+        temp: i['main']['temp'].toInt(),
         icon: i['weather'][0]['icon'],
       );
       list.add(j);

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 
-import 'package:weather_forecast/models/WeatherInformation.dart';
-import 'package:weather_forecast/services/GetWeather.dart';
 import 'package:weather_forecast/services/SliverAppBarDelegate.dart';
 import 'package:weather_forecast/widgets/CurrentWeather.dart';
 import 'package:weather_forecast/widgets/ForecastWeather.dart';
@@ -18,20 +15,16 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   // This widget is the root of your application.
-  
-  //final Future<WeatherInformation> data = getWeather();
-
-  //MyAppState({Key key, this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Weather Forecast',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.blueGrey,
       ),
       home: Scaffold(
-        backgroundColor: Colors.cyanAccent,
+        backgroundColor: Colors.lightBlue,
         body: SliverListView(),
       ),
     );
@@ -47,7 +40,7 @@ class SliverListView extends StatelessWidget {
         minHeight: 60.0,
         maxHeight: 80.0,
         child: Container(
-            color: Colors.lightBlue, 
+            color: Colors.blueGrey, 
             child: Center( 
               child: Text(
                 headerText,

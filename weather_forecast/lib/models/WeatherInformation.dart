@@ -4,7 +4,7 @@ class WeatherInformation {
   final String name;
   final String date;
   final String main;
-  final double temp;
+  final int temp;
   final String icon;
 
   WeatherInformation({
@@ -20,7 +20,7 @@ class WeatherInformation {
       name: json['city']['name'],
       date: json['list'][0]['dt_txt'],
       main: json['list'][0]['weather'][0]['main'],
-      temp: json['list'][0]['main']['temp'].toDouble(),
+      temp: json['list'][0]['main']['temp'].toInt(),
       icon: json['list'][0]['weather'][0]['icon'],
     );
   }
