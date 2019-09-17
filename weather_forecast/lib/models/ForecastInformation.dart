@@ -15,6 +15,7 @@ class ForecastInformation {
       final DateTime dt = DateTime.parse(i['dt_txt']);
 
       WeatherInformation j = new WeatherInformation(
+        name: json['city']['name'],
         date: dt,
         main: i['weather'][0]['main'],
         temp: i['main']['temp'].toInt(),

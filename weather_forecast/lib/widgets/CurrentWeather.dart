@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:weather_forecast/models/WeatherInformation.dart';
-import 'package:weather_forecast/services/GetWeather.dart';
+import 'package:weather_forecast/models/ForecastInformation.dart';
+import 'package:weather_forecast/services/GetForecast.dart';
 import 'package:intl/intl.dart';
 
 class CurrentWeather extends StatelessWidget {  
 
-  final Future<WeatherInformation> data = getWeather();
-
-  //CurrentWeather({Key key}) : super(key: key);
+  final Future<ForecastInformation> data = getForecast();
 
   @override
   Widget build(BuildContext context) {
-    return new FutureBuilder<WeatherInformation>(
-      future: getWeather(),
+    return new FutureBuilder<ForecastInformation>(
+      future: getForecast(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Padding(
@@ -21,11 +19,11 @@ class CurrentWeather extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Expanded(
-                    child:  Text(snapshot.data.name, style: TextStyle(fontSize: 18.0)),
+                    child:  Text(snapshot.data.forecastList.elementAt(0).name, style: TextStyle(fontSize: 18.0)),
                   ),
                   Expanded(
                     flex: 2,
-                    child: Image.network('https://openweathermap.org/img/wn/${snapshot.data.icon}@2x.png'),
+                    child: Image.network('https://openweathermap.org/img/wn/${snapshot.data.forecastList.elementAt(0).icon}@2x.png'),
                   ),
                   Expanded(
                     child: Text(DateFormat.yMMMMd("en_US").format(DateTime.now())),
@@ -34,13 +32,13 @@ class CurrentWeather extends StatelessWidget {
                     child: Text(DateFormat('EEEE').format(DateTime.now())),
                   ),
                   Expanded(
-                    child: Text(snapshot.data.main),
+                    child: Text(snapshot.data.forecastList.elementAt(0).main),
                   ),
                   Expanded(
-                    child: Text(snapshot.data.temp.toString()+'°C', style: TextStyle(fontSize: 22.0)),
+                    child: Text(snapshot.data.forecastList.elementAt(0).temp.toString()+'°C', style: TextStyle(fontSize: 22.0)),
                   ),               
                 ],
-              )
+              ),
             );
           } else if (snapshot.hasError) {
             return Text("${snapshot.error}");

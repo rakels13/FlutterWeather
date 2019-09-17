@@ -67,8 +67,16 @@ class SliverListView extends StatelessWidget {
             crossAxisCount: 1,
           ),
           delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-              return new Container(
-                child: CurrentWeather(),
+              return new GestureDetector(
+                child: Container(
+                  child: CurrentWeather(),
+                ),
+                onTap: () {
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DetailWeatherRoute()),
+                  );
+                },
               );
             },
             childCount: 1,
@@ -86,6 +94,25 @@ class SliverListView extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class DetailWeatherRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Detailed weather information"),
+      ),
+      body: Center(
+        child: RaisedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('Go back!'),
+        ),
+      ),
     );
   }
 }
