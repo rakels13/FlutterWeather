@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:weather_forecast/routes/DetailWeatherRoute.dart';
 import 'package:weather_forecast/services/SliverAppBarDelegate.dart';
 import 'package:weather_forecast/widgets/CurrentWeather.dart';
 import 'package:weather_forecast/widgets/ForecastWeather.dart';
-import 'package:weather_forecast/widgets/MoreDetailWeather.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,6 +15,11 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   // This widget is the root of your application.
+  /*@override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    var forecastData = getForecast();
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -87,39 +91,12 @@ class SliverListView extends StatelessWidget {
         SliverFixedExtentList(
           itemExtent: 150.0,
           delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-            return new GestureDetector(
-              child: Container(
-               child: ForecastWeather(index: index+1,),
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                    MaterialPageRoute(builder: (context) => DetailWeatherRoute(index: index+1)),
-                  );
-              },
-            );
+            return new ForecastWeather(ind: index);
           },
           childCount: 4,
           ),
         ),
       ],
-    );
-  }
-}
-
-class DetailWeatherRoute extends StatelessWidget {
-  
-  final int index;
-
-  DetailWeatherRoute({Key key, @required this.index}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Detailed Weather'),
-      ),
-      body: MoreDetailWeather(index: index,),
     );
   }
 }

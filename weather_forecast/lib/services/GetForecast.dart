@@ -4,6 +4,7 @@ import 'package:location/location.dart';
 import 'package:weather_forecast/models/ForecastInformation.dart';
 
 Future<ForecastInformation> getForecast() async {
+
   Location userLocation = new Location();
   
   Map<String, double> currentLocation;

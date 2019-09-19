@@ -29,7 +29,7 @@ class CurrentWeather extends StatelessWidget {
                     child: Text(DateFormat.yMMMMd("en_US").format(DateTime.now())),
                   ),
                   Expanded(
-                    child: Text(DateFormat('EEEE').format(DateTime.now())),
+                    child: Text(DateFormat('H').format(DateTime.now())),
                   ),
                   Expanded(
                     child: Text(snapshot.data.forecastList.elementAt(0).main),
