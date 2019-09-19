@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_forecast/routes/DetailWeatherRoute.dart';
-import 'package:weather_forecast/services/SliverAppBarDelegate.dart';
+import 'package:weather_forecast/helpers/SliverAppBarDelegate.dart';
+import 'package:weather_forecast/routes/SearchLocation.dart';
 import 'package:weather_forecast/widgets/CurrentWeather.dart';
 import 'package:weather_forecast/widgets/ForecastWeather.dart';
 
@@ -14,20 +15,17 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  // This widget is the root of your application.
-  /*@override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    var forecastData = getForecast();
-  }*/
-
+  // This widget is the root of your application
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Weather Forecast',
-      theme: ThemeData.light(),
+      theme: new ThemeData(
+        primarySwatch: Colors.cyan,
+        brightness: Brightness.dark,
+      ),
       home: Scaffold(
-        //backgroundColor: Colors.lightBlue,
+        backgroundColor: Color.fromRGBO(0, 158, 179, 1),
         body: SliverListView(),
       ),
     );
@@ -35,7 +33,7 @@ class MyAppState extends State<MyApp> {
 }
 
 class SliverListView extends StatelessWidget {
-
+  // Homepage layout, one element grid with list below, using slivers
   SliverPersistentHeader makeHeader(String headerText) {
     return SliverPersistentHeader(
       pinned: true,
@@ -43,7 +41,7 @@ class SliverListView extends StatelessWidget {
         minHeight: 60.0,
         maxHeight: 80.0,
         child: Container(
-            color: Colors.grey, 
+            color: Color.fromRGBO(38, 197, 218, 1), 
             child: Center( 
               child: Text(
                 headerText,
@@ -55,11 +53,22 @@ class SliverListView extends StatelessWidget {
     );
   }
 
-    @override
+  @override
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
+          actions: <Widget>[
+            // search button in the appbar header to search for location
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SearchLocation()),
+                  );
+              },
+            ),
+          ],
           pinned: true,
           expandedHeight: 100.0,
           flexibleSpace: FlexibleSpaceBar(
@@ -72,13 +81,13 @@ class SliverListView extends StatelessWidget {
             crossAxisCount: 1,
           ),
           delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+              //Builder for current weather, clickable
               return new GestureDetector(
-                child: Container(
-                  child: CurrentWeather(),
-                ),
+                  // Calls the future builder for the currentweather information
+                  child : CurrentWeather(),
                 onTap: () {
-                  Navigator.push(
-                  context,
+                  Navigator.push(context,
+                  // New route for more detail, baseIndex sent as parameter
                   MaterialPageRoute(builder: (context) => DetailWeatherRoute(index: 0,)),
                   );
                 },
@@ -87,12 +96,14 @@ class SliverListView extends StatelessWidget {
             childCount: 1,
           ),
         ),
-        makeHeader('Weather Forecast for following days'),
+        makeHeader('Following Days Forecast'),
+        // Fixed list containing the following days' forecast
         SliverFixedExtentList(
           itemExtent: 150.0,
           delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
             return new ForecastWeather(ind: index);
           },
+          // Display the four following days (in the 5 day forecast)
           childCount: 4,
           ),
         ),

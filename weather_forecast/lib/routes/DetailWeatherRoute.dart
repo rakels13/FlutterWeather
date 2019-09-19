@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_forecast/widgets/MoreDetailWeather.dart';
 
 class DetailWeatherRoute extends StatelessWidget {
+  // Page that shows more detail about the weatherforecast
   
   final int index;
 
@@ -13,7 +14,8 @@ class DetailWeatherRoute extends StatelessWidget {
       appBar: AppBar(
         title: Text('Detailed Weather'),
       ),
-      body: MoreDetailWeather(index: index,),
+      backgroundColor: Color.fromRGBO(0, 158, 179, 1),
+      body: MoreDetailWeather(index: index),
     );
   }
 }

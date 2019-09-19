@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:weather_forecast/models/ForecastInformation.dart';
-import 'package:weather_forecast/services/GetForecast.dart';
+import 'package:weather_forecast/helpers/GetForecast.dart';
 import 'package:intl/intl.dart';
 
 class CurrentWeather extends StatelessWidget {  
-
+  // The widget that displays the weather currently
+  // Using a Futurebuilder that calls the future that holds the list of the data
   final Future<ForecastInformation> data = getForecast();
 
   @override
@@ -19,24 +20,25 @@ class CurrentWeather extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Expanded(
-                    child:  Text(snapshot.data.forecastList.elementAt(0).name, style: TextStyle(fontSize: 18.0)),
+                    child:  Text(snapshot.data.forecastList.elementAt(0).name, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                  ),
+                  Expanded(
+                    child: Text(DateFormat('EEEE').format(DateTime.now()), style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
                   ),
                   Expanded(
                     flex: 2,
                     child: Image.network('https://openweathermap.org/img/wn/${snapshot.data.forecastList.elementAt(0).icon}@2x.png'),
                   ),
                   Expanded(
-                    child: Text(DateFormat.yMMMMd("en_US").add_jm().format(DateTime.now())),
+                    child: Text(snapshot.data.forecastList.elementAt(0).temp.toString()+'°C', style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold)),
+                  ), 
+                  Expanded(
+                    child: Text(DateFormat.yMMMMd("en_US").format(DateTime.now()), style: TextStyle(fontSize: 18)),
                   ),
                   Expanded(
-                    child: Text(DateFormat('H').format(DateTime.now())),
+                    child: Text(snapshot.data.forecastList.elementAt(0).main + ' - ' + snapshot.data.forecastList.elementAt(0).description, style: TextStyle(fontSize: 18),),
                   ),
-                  Expanded(
-                    child: Text(snapshot.data.forecastList.elementAt(0).main),
-                  ),
-                  Expanded(
-                    child: Text(snapshot.data.forecastList.elementAt(0).temp.toString()+'°C', style: TextStyle(fontSize: 22.0)),
-                  ),               
+                                
                 ],
               ),
             );

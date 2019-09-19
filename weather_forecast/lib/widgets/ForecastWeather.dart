@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_forecast/models/ForecastInformation.dart';
 import 'package:weather_forecast/routes/DetailWeatherRoute.dart';
-import 'package:weather_forecast/services/GetForecast.dart';
+import 'package:weather_forecast/helpers/GetForecast.dart';
 import 'package:intl/intl.dart';
 
 class ForecastWeather extends StatelessWidget {  
@@ -12,6 +12,7 @@ class ForecastWeather extends StatelessWidget {
   ForecastWeather({this.ind});
 
   _getIndex (bi, i) {
+    // Calculating the correct index to find the forecast for following days at noon
     
     if(i != null) {
       i = i*8;
@@ -90,10 +91,11 @@ class ForecastWeather extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Container(
-                      padding: const EdgeInsets.only(top: 50),
+                      padding: const EdgeInsets.only(top: 10),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text(DateFormat('EEE').format(snapshot.data.forecastList.elementAt(inde).date)),
+                          Text(DateFormat('EEEE').format(snapshot.data.forecastList.elementAt(inde).date), style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                           Text(DateFormat.yMMMMd("en_US").format(snapshot.data.forecastList.elementAt(inde).date)),
                         ],
                       )

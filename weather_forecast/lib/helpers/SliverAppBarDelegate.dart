@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 class SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+
+  // The settings for the sliver layout on the homepage
+
   SliverAppBarDelegate({
     @required this.minHeight,
     @required this.maxHeight,

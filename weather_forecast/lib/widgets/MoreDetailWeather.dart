@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_forecast/models/ForecastInformation.dart';
-import 'package:weather_forecast/services/GetForecast.dart';
+import 'package:weather_forecast/helpers/GetForecast.dart';
 import 'package:intl/intl.dart';
 
 class MoreDetailWeather extends StatelessWidget {  
@@ -23,23 +23,23 @@ class MoreDetailWeather extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     Expanded(
-                      child:  Text(snapshot.data.forecastList.elementAt(index).name, style: TextStyle(fontSize: 18.0)),
+                      child:  Text(snapshot.data.forecastList.elementAt(index).name, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                    ),
+                    Expanded(
+                      child: Text(DateFormat('EEEE').format(snapshot.data.forecastList.elementAt(index).date), style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),),
                     ),
                     Expanded(
                       flex: 2,
                       child: Image.network('https://openweathermap.org/img/wn/${snapshot.data.forecastList.elementAt(index).icon}@2x.png'),
                     ),
                     Expanded(
-                      child: Text(snapshot.data.forecastList.elementAt(index).temp.toString()+'°C', style: TextStyle(fontSize: 22.0)),
+                      child: Text(snapshot.data.forecastList.elementAt(index).temp.toString()+'°C', style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
                     ),
                     Expanded(
-                      child: Text(DateFormat.yMMMMd("en_US").add_jm().format(snapshot.data.forecastList.elementAt(index).date)),
+                      child: Text(DateFormat.yMMMMd("en_US").format(snapshot.data.forecastList.elementAt(index).date), style: TextStyle(fontSize: 18.0)),
                     ),
                     Expanded(
-                      child: Text(DateFormat('EEEE').format(snapshot.data.forecastList.elementAt(index).date)),
-                    ),
-                    Expanded(
-                      child: Text(snapshot.data.forecastList.elementAt(index).main + ' - ' + snapshot.data.forecastList.elementAt(index).description),
+                      child: Text(snapshot.data.forecastList.elementAt(index).main + ' - ' + snapshot.data.forecastList.elementAt(index).description, style: TextStyle(fontSize: 18.0)),
                     ),
                     Expanded(
                       child: Row(
