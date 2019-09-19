@@ -26,7 +26,7 @@ class CurrentWeather extends StatelessWidget {
                     child: Image.network('https://openweathermap.org/img/wn/${snapshot.data.forecastList.elementAt(0).icon}@2x.png'),
                   ),
                   Expanded(
-                    child: Text(DateFormat.yMMMMd("en_US").format(DateTime.now())),
+                    child: Text(DateFormat.yMMMMd("en_US").add_jm().format(DateTime.now())),
                   ),
                   Expanded(
                     child: Text(DateFormat('H').format(DateTime.now())),

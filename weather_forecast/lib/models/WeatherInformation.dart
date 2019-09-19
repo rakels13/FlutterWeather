@@ -6,13 +6,25 @@ class WeatherInformation {
   final String main;
   final int temp;
   final String icon;
+  final int tempMin;
+  final int tempMax;
+  final int humidity;
+  final String description;
+  final double wind;
+
+
 
   WeatherInformation({
     this.name,
     this.date,
     this.main,
     this.temp,
-    this.icon
+    this.icon,
+    this.description,
+    this.humidity,
+    this.tempMax,
+    this.tempMin,
+    this.wind,
   });
 
   factory WeatherInformation.fromJson(Map<String, dynamic> json) {
@@ -25,6 +37,11 @@ class WeatherInformation {
       main: json['list'][0]['weather'][0]['main'],
       temp: json['list'][0]['main']['temp'].toInt(),
       icon: json['list'][0]['weather'][0]['icon'],
+      tempMin: json['list'][0]['main']['temp_min'].toInt(),
+      tempMax: json['list'][0]['main']['temp_max'].toInt(),
+      humidity: json['list'][0]['main']['humidity'],
+      description: json['list'][0]['weather'][0]['description'],
+      wind: json['list'][0]['wind']['speed'].toDouble(),
     );
   }
 }

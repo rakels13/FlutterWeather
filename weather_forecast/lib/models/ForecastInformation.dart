@@ -20,6 +20,11 @@ class ForecastInformation {
         main: i['weather'][0]['main'],
         temp: i['main']['temp'].toInt(),
         icon: i['weather'][0]['icon'],
+        tempMin: i['main']['temp_min'].toInt(),
+        tempMax: i['main']['temp_max'].toInt(),
+        humidity: i['main']['humidity'],
+        description: i['weather'][0]['description'],
+        wind: i['wind']['speed'].toDouble(),
       );
       list.add(j);
     }
