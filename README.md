@@ -35,9 +35,9 @@ No test to run yet.
 
 ## Next steps (The TODO list)
 
-* Adding caching with time limits - perhaps using flutter_cache_manager
+* Add to logic to the search for location page and passing the user to that page if he doesn't allow for use of geo coordinates
+* Adding caching with time limits - perhaps using package flutter_cache_manager
 * Adding a refresh button
-* Adding search options for other locations than the ones obtained by geolocation
 * Adding more info in the detailed weather page, perhaps overview of all the forecasts for given day
 * Refactoring the code
 * Designing a better UI and layout
