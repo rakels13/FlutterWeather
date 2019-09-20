@@ -82,7 +82,7 @@ class ForecastWeather extends StatelessWidget {
           future: getForecast(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              int inde = _getIndex((DateFormat('H').format(snapshot.data.forecastList.elementAt(0).date)).toString(), ind+1);
+              int inde = _getIndex((DateFormat('H').format(snapshot.data.forecastList.elementAt(0).date)).toString(), ind);
               i = inde;
               return Padding(
                 padding: const EdgeInsets.only(left: 30, right: 20),

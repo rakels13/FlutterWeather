@@ -27,6 +27,7 @@ Future<ForecastInformation> getForecast() async {
   }
   else {
     // No permission - Here the user should be prompted to search for a location
+    // A call to searchLocation where we get user input 
     uri = 'http://api.openweathermap.org/data/2.5/forecast?q=London,gb&appid=7a1fb19e16b5e885d8e1512b4ac571cd&units=metric';
   }
   final response = await http.get(Uri.parse(uri));
