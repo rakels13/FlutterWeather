@@ -39,6 +39,7 @@ No test to run yet.
 * Adding caching with time limits - perhaps using package flutter_cache_manager
 * Adding a refresh button
 * Adding more info in the detailed weather page, perhaps overview of all the forecasts for given day
+* Adding tests and input validation
 * Refactoring the code
 * Designing a better UI and layout
 
