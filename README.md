@@ -1,6 +1,6 @@
 # Flutter Weather or Weather forecast
 
-A weather forecast app by Rakel Sigurjónsdóttir. The project is developed in flutter and using the weatherAPI found at: [OpenWeather](https://openweathermap.org/forecast5). The app shows the weather for the current day (the closest forecast in time) and then a list of overview for the next four following days (forecast for noon on those days). Clicking on any of the days in the list or the current weather opens a detail page that shows some more detail information about the forecast. The app uses the users location to retrieve the information.
+A weather forecast app by Rakel Sigurjónsdóttir. The project is developed in flutter and using the weatherAPI found at: [OpenWeather](https://openweathermap.org/forecast5). The app shows the weather for the current day (the closest forecast in time) and then a list of overview for the next four following days (forecast for noon on those days). Clicking on any of the days in the list or the current weather opens a detail page that shows some more detail information about the forecast. The app uses the users location to retreive the information.
 
 ## Getting Started
 
